@@ -1,17 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
-import {createStore,applyMiddleware} from 'redux';
+import {createStore,applyMiddleware,combineReducers} from 'redux';
 import {logger} from 'redux-logger';
+import thunkMiddleware from 'redux-thunk';
 import './index.css';
 // import App from './App';
 import * as serviceWorker from './serviceWorker';
 import 'tachyons';
 import App from './Container/app';
-import {searchRobots} from './reducer';
+import {searchRobots,requestRobots} from './reducer';
 
 //we can create a single root by merging all reducers
-const store = createStore(searchRobots,applyMiddleware(logger));
+const rootReducer = combineReducers(
+  {searchRobots,requestRobots}
+)
+const store 
+= createStore(rootReducer,applyMiddleware(thunkMiddleware,logger));
 
 
 ReactDOM.render(
